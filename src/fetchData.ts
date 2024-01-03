@@ -5,5 +5,16 @@
  * @returns - 回傳一個 Promise，該 Promise resolve 的值應該是從 URL 取得的資料
  */
 
-// 請在下方寫下你的程式碼
+interface Data {
+  id: number;
+  title: string;
+}
 
+export async function fetchData(url: string): Promise<Data> {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+  const data = (await response.json()) as Data;
+  return data;
+}
